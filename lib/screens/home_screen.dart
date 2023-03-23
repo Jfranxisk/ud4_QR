@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_scan/models/scan_model.dart';
 import 'package:qr_scan/providers/db_provider.dart';
 import 'package:qr_scan/screens/screens.dart';
 import 'package:qr_scan/widgets/widgets.dart';
@@ -39,7 +40,8 @@ class _HomeScreenBody extends StatelessWidget {
 
     //Creacio TEMP de BBDD
     DBProvider.db.database;
-
+    ScanModel nouScan = ScanModel(valor: "https://paucasesnovesfp.cat");
+    DBProvider.db.insertScan(nouScan);
     switch (currentIndex) {
       case 0:
         return MapasScreen();
