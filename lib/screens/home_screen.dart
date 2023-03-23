@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_scan/models/scan_model.dart';
 import 'package:qr_scan/providers/db_provider.dart';
+import 'package:qr_scan/providers/scan_list_provider.dart';
 import 'package:qr_scan/screens/screens.dart';
 import 'package:qr_scan/widgets/widgets.dart';
 import '../providers/ui_provider.dart';
@@ -17,7 +18,9 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.delete_forever),
-            onPressed: () {},
+            onPressed: () {
+              Provider.of<ScanListProvider>(context, listen: false).deleteAllScans();
+            },
           )
         ],
       ),
@@ -40,16 +43,25 @@ class _HomeScreenBody extends StatelessWidget {
 
     //Creacio TEMP de BBDD
     DBProvider.db.database;
-    ScanModel nouScan = ScanModel(valor: "https://paucasesnovesfp.cat");
-    DBProvider.db.insertScan(nouScan);
+    //DBProvider.db.insertScan(nouScan);
+    //DBProvider.db.getScans();
+    //DBProvider.db.getScanById(0);
+    //DBProvider.db.deleteScans();
+    //DBProvider.db.deleteScanById(1);
+
+    final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
+
     switch (currentIndex) {
       case 0:
+        scanListProvider.printScansTipus('geo');
         return MapasScreen();
 
       case 1:
+        scanListProvider.printScansTipus('http');
         return DireccionsScreen();
 
       default:
+        scanListProvider.printScansTipus('geo');
         return MapasScreen();
     }
   }

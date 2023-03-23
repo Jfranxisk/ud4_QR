@@ -19,6 +19,7 @@ class DBProvider {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentDirectory.path, 'Scans.db');
     print(path);
+
     //Creacio de BBDD
     return await openDatabase(
       path,
@@ -27,7 +28,7 @@ class DBProvider {
       onCreate: (Database db, int version) async {
         await db.execute('''
           CREATE TABLE Scans(
-            id INTEGER PRYMARY KEY,
+            id INTEGER PRIMARY KEY,
             tipus TEXT,
             valor TEXT
           )
@@ -69,6 +70,7 @@ class DBProvider {
       where: 'id = ?', 
       whereArgs: [id]
     );
+    print(res.isNotEmpty ? ScanModel.fromMap(res.first) : null);
     return res.isNotEmpty ? ScanModel.fromMap(res.first) : null;
   }
 
@@ -99,6 +101,7 @@ class DBProvider {
     final res = await db.rawDelete('''
       DELETE FROM Scans
     ''');
+    print('delete: ${res} registres');
     return res;
   }
 
@@ -110,6 +113,7 @@ class DBProvider {
       where: 'id = ?',
       whereArgs: [id]
     );
+    print('delete ID: ${res}');
     return res;
   }
 }
