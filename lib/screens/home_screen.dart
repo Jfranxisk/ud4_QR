@@ -43,11 +43,6 @@ class _HomeScreenBody extends StatelessWidget {
 
     //Creacio TEMP de BBDD
     DBProvider.db.database;
-    //DBProvider.db.insertScan(nouScan);
-    //DBProvider.db.getScans();
-    //DBProvider.db.getScanById(0);
-    //DBProvider.db.deleteScans();
-    //DBProvider.db.deleteScanById(1);
 
     final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
 
